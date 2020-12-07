@@ -1,6 +1,3 @@
 import Commerce from "@chec/commerce.js";
-
-export const commerce = new Commerce(
-  process.env.REACT_APP_CHEC_PUBLIC_KEY,
-  true
-);
+const public_api_key = "pk_204194e1ef7ca296d2443636726e4d46b072b0f15996a";
+export const commerce = new Commerce(`${public_api_key}`, true);

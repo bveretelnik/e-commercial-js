@@ -10,13 +10,23 @@ import { commerce } from "./lib/commerce";
 function App() {
   const [products, setProducts] = useState([]);
 
+  const fetchProducts = async () => {
+    const { data } = await commerce.products.list();
+
+    setProducts(data);
+  };
+
+  useEffect(() => {
+    fetchProducts();
+    console.log(products);
+  }, []);
   return (
     <Router>
       <div style={{ display: "flex" }}>
         <Navbar />
         <Switch>
           <Route exact path="/">
-            <Products />
+            <Products products={products} />
           </Route>
           <Route exact path="/cart">
             <Cart />

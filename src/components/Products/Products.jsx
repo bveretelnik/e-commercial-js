@@ -3,12 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Product from "./Product/Product";
 import useStyles from "./styles";
 
-export default function Products() {
-  const products = [
-    { id: 1, name: "Iphone", description: "...", price: 100 },
-    { id: 2, name: "Watch", description: "...", price: 50 },
-    { id: 3, name: "Macbook", description: "...", price: 200 },
-  ];
+export default function Products({ products }) {
   const classes = useStyles();
   return (
     <main className={classes.content}>
