@@ -9,7 +9,15 @@ import { commerce } from "./lib/commerce";
 
 function App() {
   const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState({});
 
+  const fetchCart = async () => {
+    setCart(await commerce.cart.retrieve());
+  };
+  const handleAddToCart = async (productId, quantity) => {
+    const item = await commerce.cart.add(productId, quantity);
+    setCart(item.cart);
+  };
   const fetchProducts = async () => {
     const { data } = await commerce.products.list();
 
@@ -18,15 +26,16 @@ function App() {
 
   useEffect(() => {
     fetchProducts();
-    console.log(products);
+    fetchCart();
   }, []);
+  console.log(cart);
   return (
     <Router>
       <div style={{ display: "flex" }}>
-        <Navbar />
+        <Navbar totalItems={cart.total_items} />
         <Switch>
           <Route exact path="/">
-            <Products products={products} />
+            <Products products={products} handleAddToCart={handleAddToCart} />
           </Route>
           <Route exact path="/cart">
             <Cart />

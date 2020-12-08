@@ -15,7 +15,7 @@ import { ShoppingCart } from "@material-ui/icons";
 import logo from "../../assets/apple-logo.png";
 import useStyles from "./styles";
 
-export default function Navbar() {
+export default function Navbar({ totalItems }) {
   const classes = useStyles();
   return (
     <>
@@ -33,7 +33,7 @@ export default function Navbar() {
           <div className={classes.grow} />
           <div className={classes.button}>
             <IconButton aria-label="Show cart items" color="inherit">
-              <Badge badgeContent={2} color="secondary">
+              <Badge badgeContent={totalItems} color="secondary">
                 <ShoppingCart />
               </Badge>
             </IconButton>
