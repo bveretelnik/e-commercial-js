@@ -14,19 +14,30 @@ function App() {
   const fetchCart = async () => {
     setCart(await commerce.cart.retrieve());
   };
+
   const handleAddToCart = async (productId, quantity) => {
     const item = await commerce.cart.add(productId, quantity);
     setCart(item.cart);
   };
   const fetchProducts = async () => {
     const { data } = await commerce.products.list();
-
     setProducts(data);
+  };
+  const handleUpdateCartQty = async (lineItemId, quantity) => {
+    const response = await commerce.cart.update(lineItemId, { quantity });
+
+    setCart(response.cart);
+  };
+
+  const handleRemoveFromCart = async (lineItemId) => {
+    const response = await commerce.cart.remove(lineItemId);
+    setCart(response.cart);
   };
 
   useEffect(() => {
     fetchProducts();
     fetchCart();
+    //eslint-disable-next-line
   }, []);
   console.log(cart);
   return (
@@ -38,7 +49,11 @@ function App() {
             <Products products={products} handleAddToCart={handleAddToCart} />
           </Route>
           <Route exact path="/cart">
-            <Cart />
+            <Cart
+              cart={cart}
+              onUpdateCartQty={handleUpdateCartQty}
+              onRemoveFromCart={handleRemoveFromCart}
+            />
           </Route>
           <Route exact path="/chechout">
             <CheckoutForm />
