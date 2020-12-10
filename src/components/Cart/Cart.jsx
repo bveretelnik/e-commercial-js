@@ -1,17 +1,26 @@
 import React from "react";
 import { Container, Typography, Button, Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
-
 import CartItem from "./CartItem/CartItem";
 import useStyles from "./styles";
 
-export default function Cart({ cart, onUpdateCartQty, onRemoveFromCart }) {
+export default function Cart({
+  cart,
+  onUpdateCartQty,
+  onRemoveFromCart,
+  onEmptyCart,
+}) {
   const classes = useStyles();
 
+  const handleEmptyCart = () => onEmptyCart();
+
   const renderEmptyCart = () => (
-    <Typography variant="subtitle1">
-      You have no items in your shopping cart
-    </Typography>
+    <>
+      <Typography variant="subtitle1">
+        You have no items in your shopping cart.&nbsp;
+        <Link to="/">Go to shop</Link>
+      </Typography>
+    </>
   );
 
   if (!cart.line_items) return "Loading...";
@@ -40,6 +49,7 @@ export default function Cart({ cart, onUpdateCartQty, onRemoveFromCart }) {
             type="button"
             variant="contained"
             color="secondary"
+            onClick={handleEmptyCart}
           >
             Empty cart
           </Button>
