@@ -30,7 +30,7 @@ export default function Cart({
 
   const renderCart = () => (
     <>
-      <Grid container spacinh={3}>
+      <Grid container spacing={3}>
         {cart.line_items.map((lineItem) => (
           <Grid item xs={12} sm={4} key={lineItem.id}>
             <CartItem
