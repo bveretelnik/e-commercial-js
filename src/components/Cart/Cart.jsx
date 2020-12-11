@@ -17,8 +17,11 @@ export default function Cart({
   const renderEmptyCart = () => (
     <>
       <Typography variant="subtitle1">
-        You have no items in your shopping cart.&nbsp;
-        <Link to="/">Go to shop</Link>
+        You have no items in your shopping cart,
+        <Link className={classes.link} to="/">
+          start adding some
+        </Link>
+        !
       </Typography>
     </>
   );
