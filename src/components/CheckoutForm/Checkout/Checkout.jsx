@@ -46,7 +46,6 @@ export default function Checkout({ cart }) {
     setShippingData(data);
     nextStep();
   };
-  console.log(shippingData);
 
   const Form = () =>
     activeStep === 0 ? (
@@ -56,7 +55,7 @@ export default function Checkout({ cart }) {
         test={test}
       />
     ) : (
-      <PaymentForm backStep={backStep} />
+      <PaymentForm backStep={backStep} checkoutToken={checkoutToken} />
     );
   const Confirmation = () => <div>Confirmation</div>;
   return (
