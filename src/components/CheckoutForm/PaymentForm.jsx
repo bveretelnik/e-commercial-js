@@ -18,9 +18,10 @@ export default function PaymentForm({
   onCaptureCheckout,
 }) {
   const handleSubmit = async (event, elements, stripe) => {
-    event, preventDefault();
+    event.preventDefault();
 
     if (!stripe || !elements) return;
+    const cardElement = elements.getElement(CardElement);
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",

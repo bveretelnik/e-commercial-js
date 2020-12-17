@@ -10,6 +10,8 @@ import { commerce } from "./lib/commerce";
 function App() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState({});
+  const [order, setOrder] = useState({});
+  const [errorMessage, setErrorMessag] = useState("");
 
   const fetchCart = async () => {
     setCart(await commerce.cart.retrieve());
@@ -39,12 +41,30 @@ function App() {
     setCart(response.cart);
   };
 
+  const refreshCart = async () => {
+    const newCart = await commerce.cart.refresh();
+    setCart(newCart);
+  };
+
+  const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
+    try {
+      const incomingOrder = await commerce.checkout.capture(
+        checkoutTokenId,
+        newOrder
+      );
+      setOrder(incomingOrder);
+      refreshCart();
+    } catch (err) {
+      setErrorMessag(err.data.error.message);
+    }
+  };
+
   useEffect(() => {
     fetchProducts();
     fetchCart();
     //eslint-disable-next-line
   }, []);
-  console.log(cart);
+
   return (
     <Router>
       <div style={{ display: "flex" }}>
@@ -62,7 +82,12 @@ function App() {
             />
           </Route>
           <Route exact path="/checkout">
-            <Checkout cart={cart} />
+            <Checkout
+              cart={cart}
+              order={order}
+              onCaptureChecout={handleCaptureCheckout}
+              error={errorMessage}
+            />
           </Route>
         </Switch>
       </div>
