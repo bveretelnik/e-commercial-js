@@ -5,6 +5,7 @@ import useStyles from "./styles";
 
 export default function Products({ products, handleAddToCart }) {
   const classes = useStyles();
+  if (!products.length) return <p>Loading...</p>;
   return (
     <main className={classes.content}>
       <div className={classes.toolbar} />

@@ -33,7 +33,7 @@ export default function Product({ product, handleAddToCart }) {
           dangerouslySetInnerHTML={{ __html: product.description }}
           variant="body2"
           color="textSecondary"
-          component="h2"
+          component="p"
         />
       </CardContent>
       <CardActions disableSpacing className={classes.cardActions}>
